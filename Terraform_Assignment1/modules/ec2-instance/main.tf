@@ -40,16 +40,20 @@ data "aws_ami" "latest_ubuntu" {
     protocol = "-1" # All traffic
     cidr_blocks = ["0.0.0.0/0"] # Allow traffic to any destination
   }
+
+tags = {
+   Name = "${var.environment}-Sg"
 }
 
+}
+
+# Now lets create two instances to reside each in eacch of the subnets
 resource "aws_instance" "dev-server" {
   count = 2
   ami = data.aws_ami.latest_ubuntu.id
   instance_type = var.instance_type
-  #key_name = var.key_pair_name
   key_name = var.key_pair_name
   subnet_id = var.subnet_id[count.index]
-  # associate_public_ip_address = false
   vpc_security_group_ids = [aws_security_group.server-sg.id]
   user_data = <<-EOF
 #!/bin/bash
@@ -76,16 +80,3 @@ tags = {
 }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-  
