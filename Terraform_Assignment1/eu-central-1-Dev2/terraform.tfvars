@@ -4,5 +4,5 @@
   key_pair_name="dev2-key-pair"
   private-key-filename="dev2-key-pair.pem"
   instance_type = "t2.micro"
-  map_public_ip_on_launch_true_false = false
+  map_public_ip_on_launch_true_false = true
   
