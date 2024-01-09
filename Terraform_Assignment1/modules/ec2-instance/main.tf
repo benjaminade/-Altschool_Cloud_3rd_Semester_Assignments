@@ -33,6 +33,13 @@ data "aws_ami" "latest_ubuntu" {
     protocol     = "icmp"
     cidr_blocks  = ["0.0.0.0/0"]
   }
+  # Ingress rule for http
+  ingress {
+    from_port    = 80
+    to_port      = 80
+    protocol     = "tcp"
+    cidr_blocks  = ["0.0.0.0/0"]
+  }
 # Allow all traffic to go out
   egress {
     from_port = 0
